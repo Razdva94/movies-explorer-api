@@ -31,6 +31,11 @@ router.post(
 
 router.delete(
   '/movies/:_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      cardId: Joi.string().hex().length(24).required(),
+    },
+  }),
   movie.deleteMovie,
 );
 
