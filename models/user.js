@@ -24,7 +24,7 @@ const userSchema = new Schema(
   { versionKey: false },
 );
 
-userSchema.methods.toJSON = function () {
+userSchema.methods.toJSON = function toObject() {
   const user = this.toObject();
   delete user.password;
   return user;
