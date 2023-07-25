@@ -15,7 +15,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-const [NODE_ENV, BAZE_URL] = process.env;
+const { NODE_ENV, BAZE_URL } = process.env;
 const mongoURI = NODE_ENV === 'production' ? BAZE_URL : 'mongodb://0.0.0.0:27017/filmsprojectdb';
 mongoose
   .connect(mongoURI, {
