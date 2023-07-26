@@ -25,6 +25,13 @@ exports.updateUser = async (req, res, next) => {
     const userId = req.user._id;
     const { name, email } = req.body;
 
+    const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+
+    if (existingUser) {
+      next(new WrongData('Пользователь с таким email уже существует.'));
+      return;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { name, email },
