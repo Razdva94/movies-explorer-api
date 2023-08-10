@@ -33,7 +33,7 @@ mongoose
 app.use(requestLogger);
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'http://portfolio-project.nomoreparties.co',
     exposedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   }),
