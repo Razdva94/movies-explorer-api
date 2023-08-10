@@ -50,22 +50,10 @@ const movieSchema = new Schema(
     nameRU: {
       type: String,
       required: [true, 'Поле "nameRU" должно быть заполнено'],
-      validate: {
-        validator(value) {
-          return /^[\u0400-\u04FF\s]+$/.test(value);
-        },
-        message: 'Неверный формат имени на русском языке',
-      },
     },
     nameEN: {
       type: String,
       required: [true, 'Поле "nameEN" должно быть заполнено'],
-      validate: {
-        validator(value) {
-          return /^[A-Za-z\s]+$/.test(value);
-        },
-        message: 'Неверный формат имени на английском языке',
-      },
     },
   },
   { versionKey: false },

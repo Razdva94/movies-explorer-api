@@ -1,8 +1,6 @@
 const express = require('express');
 const { celebrate, Segments, Joi } = require('celebrate');
 const urlPattern = require('../middlewares/urlPattern');
-const ruPattern = require('../middlewares/ruPattern');
-const enPattern = require('../middlewares/enPattern');
 const movie = require('../controllers/movies');
 
 const router = express.Router();
@@ -22,8 +20,8 @@ router.post(
       trailerLink: Joi.string().required().pattern(urlPattern),
       thumbnail: Joi.string().required().pattern(urlPattern),
       movieId: Joi.number().required(),
-      nameRU: Joi.string().required().pattern(ruPattern),
-      nameEN: Joi.string().required().pattern(enPattern),
+      nameRU: Joi.string().required(),
+      nameEN: Joi.string().required(),
     }),
   }),
   movie.createMovie,
@@ -33,7 +31,7 @@ router.delete(
   '/movies/:_id',
   celebrate({
     [Segments.PARAMS]: {
-      cardId: Joi.string().hex().length(24).required(),
+      _id: Joi.string().hex().length(24).required(),
     },
   }),
   movie.deleteMovie,

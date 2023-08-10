@@ -3,6 +3,7 @@ class SameUserError extends Error {
     super(message);
     this.name = 'SameUserError';
     this.statusCode = 409;
+    this.message = message;
   }
 }
 

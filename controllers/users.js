@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const bcrypt = require('bcrypt');
 const jsonWebToken = require('jsonwebtoken');
 const User = require('../models/user');
@@ -28,8 +29,7 @@ exports.updateUser = async (req, res, next) => {
     const existingUser = await User.findOne({ email, _id: { $ne: userId } });
 
     if (existingUser) {
-      next(new WrongData('Пользователь с таким email уже существует.'));
-      return;
+      return next(new WrongData('Пользователь с таким email уже существует.'));
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -39,14 +39,13 @@ exports.updateUser = async (req, res, next) => {
     );
 
     if (!updatedUser) {
-      next(new WrongId('Пользователь по указанному _id не найден.'));
-      return;
+      return next(new WrongId('Пользователь по указанному _id не найден.'));
     }
 
     res.status(200).json(updatedUser);
   } catch (error) {
     if (error.name === 'CastError') {
-      next(WrongData('Переданы некорректные данные пользователя.'));
+      next(new WrongData('Переданы некорректные данные пользователя.'));
     } else {
       next(error);
     }
@@ -62,7 +61,6 @@ exports.createUser = async (req, res, next) => {
       password: hashedPassword,
       email,
     });
-
     const savedUser = await user.save();
     res.status(201).json(savedUser);
   } catch (error) {
@@ -96,9 +94,9 @@ exports.login = async (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       );
       res.cookie('jwt', jwtToken, {
-        maxAge: 3600000,
+        maxAge: 360000000000,
         httpOnly: true,
-        SameSite: true,
+        sameSite: true,
       });
       res.send({ data: user.toJSON() });
     } else {

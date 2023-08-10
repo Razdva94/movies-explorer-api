@@ -6,9 +6,7 @@ const AccessError = require('../middlewares/AccessError');
 exports.getMovies = async (req, res, next) => {
   try {
     const currentUser = req.user;
-
     const movies = await Movie.find({ owner: currentUser._id });
-
     res.status(200).json(movies);
   } catch (error) {
     next(error);
@@ -18,7 +16,7 @@ exports.getMovies = async (req, res, next) => {
 exports.deleteMovie = async (req, res, next) => {
   try {
     const { _id } = req.params;
-    const movie = await Movie.findById(_id);
+    const movie = await Movie.findById({ _id });
     if (!movie) {
       next(new WrongId('Фильм с указанным _id не найден.'));
       return;
