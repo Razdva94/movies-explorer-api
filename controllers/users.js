@@ -96,7 +96,8 @@ exports.login = async (req, res, next) => {
       res.cookie('jwt', jwtToken, {
         maxAge: 360000000000,
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'none',
+        secure: true,
       });
       res.send({ data: user.toJSON() });
     } else {
