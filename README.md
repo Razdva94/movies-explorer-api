@@ -12,5 +12,5 @@
 
 ## Ссылки проекта
 
-* [Ссылка на Frontend](https://api.portfolio-project.nomoredomains.xyz)
+* [Ссылка на Backend](https://api.portfolio-project.nomoredomains.xyz)
 
